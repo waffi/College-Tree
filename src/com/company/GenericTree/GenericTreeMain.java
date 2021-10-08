@@ -29,7 +29,7 @@ public class GenericTreeMain {
         // Print the tree
 
         System.out.println("Generic Tree");
-        tree.printPathFromRoot();
+        System.out.println(tree);
 
         // Search Tree
 
@@ -43,6 +43,11 @@ public class GenericTreeMain {
         else {
             System.out.println("Search " + searchValue + " : No node found");
         }
+
+        // Path From Root
+
+        System.out.print("Path From Root : ");
+        searchResult.printPathFromRoot();
 
         // Get Number Of Elements
 

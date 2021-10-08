@@ -1,20 +1,24 @@
 package com.company.GenericTree;
 
+import com.company.BinaryIntegerTree.BinaryIntegerTree;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class GenericTree<T> {
     public T value;
+    public GenericTree parent;
     public List<GenericTree> children = new LinkedList<>();
 
-    GenericTree(T value) {
+    public GenericTree(T value) {
         this.value = value;
     }
 
     // Add Child
 
     public void addChild(GenericTree node){
+        node.parent = this;
         this.children.add(node);
     }
 
@@ -50,7 +54,24 @@ public class GenericTree<T> {
     // Print Path From Root
 
     public void printPathFromRoot() {
-        System.out.println(this.toString());
+        List<T> paths = getPathFromRoot(new LinkedList<>());
+        for (T path: paths) {
+            System.out.print(path);
+            if (paths.indexOf(path) != paths.stream().count() -1 )
+            {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("\n");
+    }
+
+    public List<T> getPathFromRoot(List<T> paths) {
+        paths.add(0, this.value);
+        if (this.parent != null)
+        {
+            return this.parent.getPathFromRoot(paths);
+        }
+        return paths;
     }
 
     // toString, Source: https://stackoverflow.com/a/8948691

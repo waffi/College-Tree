@@ -1,11 +1,15 @@
 package com.company.BinaryIntegerTree;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class BinaryIntegerTree {
     public int value;
     public BinaryIntegerTree left;
     public BinaryIntegerTree right;
+    public BinaryIntegerTree parent;
 
-    BinaryIntegerTree(int value) {
+    public BinaryIntegerTree(int value) {
         this.value = value;
         this.left = null;
         this.right = null;
@@ -15,10 +19,12 @@ public class BinaryIntegerTree {
 
     public void setLeft(int value){
         this.left = new BinaryIntegerTree(value);
+        this.left.parent = this;
     }
 
     public void setRight(int value){
         this.right = new BinaryIntegerTree(value);
+        this.right.parent = this;
     }
 
     // Search
@@ -54,7 +60,24 @@ public class BinaryIntegerTree {
     // Print Path From Root
 
     public void printPathFromRoot() {
-        System.out.println(this.toString());
+        List<Integer> paths = getPathFromRoot(new LinkedList<>());
+        for (int path: paths) {
+            System.out.print(path);
+            if (paths.indexOf(path) != paths.stream().count() -1 )
+            {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("\n");
+    }
+
+    public List<Integer> getPathFromRoot(List<Integer> paths) {
+        paths.add(0, this.value);
+        if (this.parent != null)
+        {
+            return this.parent.getPathFromRoot(paths);
+        }
+        return paths;
     }
 
     // toString, Source: https://stackoverflow.com/a/27153988

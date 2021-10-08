@@ -1,11 +1,15 @@
 package com.company.BinaryGenericTree;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class BinaryGenericTree<T> {
     public T value;
+    public BinaryGenericTree parent;
     public BinaryGenericTree left;
     public BinaryGenericTree right;
 
-    BinaryGenericTree(T value) {
+    public BinaryGenericTree(T value) {
         this.value = value;
         this.left = null;
         this.right = null;
@@ -15,10 +19,12 @@ public class BinaryGenericTree<T> {
 
     public void setLeft(T value){
         this.left = new BinaryGenericTree(value);
+        this.left.parent = this;
     }
 
     public void setRight(T value){
         this.right = new BinaryGenericTree(value);
+        this.right.parent = this;
     }
 
     // Search
@@ -54,7 +60,24 @@ public class BinaryGenericTree<T> {
     // Print Path From Root
 
     public void printPathFromRoot() {
-        System.out.println(this.toString());
+        List<T> paths = getPathFromRoot(new LinkedList<>());
+        for (T path: paths) {
+            System.out.print(path);
+            if (paths.indexOf(path) != paths.stream().count() -1 )
+            {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("\n");
+    }
+
+    public List<T> getPathFromRoot(List<T> paths) {
+        paths.add(0, this.value);
+        if (this.parent != null)
+        {
+            return this.parent.getPathFromRoot(paths);
+        }
+        return paths;
     }
 
     // toString, Source: https://stackoverflow.com/a/27153988

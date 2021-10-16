@@ -1,7 +1,5 @@
 package com.company.GenericTree;
 
-import com.company.BinaryIntegerTree.BinaryIntegerTree;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;

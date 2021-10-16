@@ -39,7 +39,10 @@ public class BinaryIntegerTreeMain {
         // Path From Root
 
         System.out.print("Path From Root : ");
-        searchResult.printPathFromRoot();
+        if (searchResult != null)
+        {
+            searchResult.printPathFromRoot();
+        }
 
         // Get Number Of Elements
 
